@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GeneratorController extends JFrame
 {
@@ -15,7 +17,16 @@ public class GeneratorController extends JFrame
         this.model = new GeneratorModel(windowWidth, windowHeight);
         this.view = new GeneratorView(this.model);
 
+        JButton generateButton = new JButton();
+
         add(this.view);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                view.clearRandomImage();
+                super.windowClosing(e);
+            }
+        });
 
         this.view.setPreferredSize(new Dimension(windowWidth, windowHeight));
 

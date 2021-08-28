@@ -1,22 +1,69 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GeneratorView extends JPanel
 {
     private GeneratorModel model;
+    private BufferedImage canvas;
+    private BufferedImage randomlyGeneratedImage;
+    private boolean shouldDraw;
 
     public GeneratorView(GeneratorModel model)
     {
         this.model = model;
+        this.shouldDraw = false;
+
+        try
+        {
+            String canvasFilePath = System.getProperty("user.dir") + "/img/canvas.jpg";
+            File canvasFile = new File(canvasFilePath);
+            this.canvas = ImageIO.read(canvasFile);
+
+            String randomlyGeneratedImageFilePath = System.getProperty("user.dir") + "/img/temp.png";
+            File randomlyGeneratedImageFile = new File(randomlyGeneratedImageFilePath);
+            this.randomlyGeneratedImage = ImageIO.read(randomlyGeneratedImageFile);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void paintComponent(Graphics graphics)
     {
         super.paintComponent(graphics);
+
+        paintRandomImage(graphics);
+
+        this.repaint();
     }
 
-    private void generateRandomImage()
+    private void paintRandomImage(Graphics graphics)
     {
+        if(this.shouldDraw)
+        {
+            getRandomImage();
+            this.shouldDraw = false;
+        }
 
+        int width = this.model.getWindowWidth();
+        int height = this.model.getWindowHeight();
+
+        graphics.drawImage(this.canvas, 0, 0, width, height, null);
+        graphics.drawImage(this.randomlyGeneratedImage, 0, 0, width, height, null);
+
+        this.repaint();
+    }
+
+    private void getRandomImage() { this.model.generateRandomImage(this.randomlyGeneratedImage);}
+    public void clearRandomImage()
+    {
+        String filePath = System.getProperty("user.dir") + "/img/temp.png";
+        String formatName = "png";
+        this.model.clearRandomImage(this.randomlyGeneratedImage, filePath, formatName);
     }
 }
