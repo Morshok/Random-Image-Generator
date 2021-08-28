@@ -54,4 +54,6 @@ public class GeneratorView extends JPanel
         String formatName = "png";
         this.model.clearRandomImage(this.randomlyGeneratedImage, filePath, formatName);
     }
+
+    public void toggleShouldDraw() { this.shouldDraw = !this.shouldDraw; }
 }

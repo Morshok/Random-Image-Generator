@@ -55,7 +55,7 @@ public class GeneratorModel
         saveImage(image, filePath, formatName);
     }
 
-    private void saveImage(BufferedImage image, String filePath, String formatName)
+    public void saveImage(BufferedImage image, String filePath, String formatName)
     {
         try
         {

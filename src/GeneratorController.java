@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -17,9 +19,6 @@ public class GeneratorController extends JFrame
         this.model = new GeneratorModel(windowWidth, windowHeight);
         this.view = new GeneratorView(this.model);
 
-        JButton generateButton = new JButton();
-
-        add(this.view);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -27,6 +26,19 @@ public class GeneratorController extends JFrame
                 super.windowClosing(e);
             }
         });
+        add(this.view);
+
+        JMenuBar menuBar = new JMenuBar();
+
+        JPanel generateButtonPanel = new JPanel();
+        generateButtonPanel.setPreferredSize(new Dimension(windowWidth, 35));
+
+        JButton generateButton = new JButton("Generate Random Image");
+        generateButton.setPreferredSize(new Dimension(200, 25));
+        generateButton.addActionListener(e -> view.toggleShouldDraw());
+        generateButtonPanel.add(generateButton, BorderLayout.CENTER);
+
+        add(generateButtonPanel, BorderLayout.SOUTH);
 
         this.view.setPreferredSize(new Dimension(windowWidth, windowHeight));
 
