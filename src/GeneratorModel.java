@@ -67,4 +67,19 @@ public class GeneratorModel
             System.out.println(e.getMessage());
         }
     }
+
+    public BufferedImage loadImage(String filePath)
+    {
+        try
+        {
+            File file = new File(filePath);
+            return ImageIO.read(file);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
 }

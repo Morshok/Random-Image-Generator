@@ -17,20 +17,8 @@ public class GeneratorView extends JPanel
         this.model = model;
         this.shouldDraw = false;
 
-        try
-        {
-            String canvasFilePath = System.getProperty("user.dir") + "/img/canvas.jpg";
-            File canvasFile = new File(canvasFilePath);
-            this.canvas = ImageIO.read(canvasFile);
-
-            String randomlyGeneratedImageFilePath = System.getProperty("user.dir") + "/img/temp.png";
-            File randomlyGeneratedImageFile = new File(randomlyGeneratedImageFilePath);
-            this.randomlyGeneratedImage = ImageIO.read(randomlyGeneratedImageFile);
-        }
-        catch(IOException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        this.canvas = this.model.loadImage(System.getProperty("user.dir") + "/img/canvas.jpg");
+        this.randomlyGeneratedImage = this.model.loadImage(System.getProperty("user.dir") + "/img/temp.png");
     }
 
     public void paintComponent(Graphics graphics)
