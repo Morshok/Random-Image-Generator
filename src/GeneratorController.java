@@ -29,8 +29,22 @@ public class GeneratorController extends JFrame
         add(this.view);
 
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(Color.LIGHT_GRAY);
+
+        JMenu fileMenu = new JMenu("File");
+        JMenu imageMenu = new JMenu("Image");
+
+        JMenuItem saveMenuItem = new JMenuItem("Save");
+        JMenuItem clearImageMenuItem = new JMenuItem("Clear");
+
+        fileMenu.add(saveMenuItem);
+        imageMenu.add(clearImageMenuItem);
+        menuBar.add(fileMenu);
+        menuBar.add(imageMenu);
+        add(menuBar, BorderLayout.NORTH);
 
         JPanel generateButtonPanel = new JPanel();
+        generateButtonPanel.setBackground(Color.LIGHT_GRAY);
         generateButtonPanel.setPreferredSize(new Dimension(windowWidth, 35));
 
         JButton generateButton = new JButton("Generate Random Image");
