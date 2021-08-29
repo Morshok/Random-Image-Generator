@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,21 @@ public class GeneratorController extends JFrame
         JMenu fileMenu = new JMenu("File");
         JMenu imageMenu = new JMenu("Image");
 
-        JMenuItem saveMenuItem = new JMenuItem("Save");
+        JMenuItem saveMenuItem = new JMenuItem(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Save as");
+
+                int userSelection = fileChooser.showSaveDialog(GeneratorController.this);
+
+                if(userSelection == JFileChooser.APPROVE_OPTION)
+                {
+                    System.out.println("Fuck you");
+                }
+            }
+        });
+        saveMenuItem.setText("Save");
         JMenuItem clearImageMenuItem = new JMenuItem("Clear");
 
         fileMenu.add(saveMenuItem);
