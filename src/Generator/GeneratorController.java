@@ -45,12 +45,19 @@ public class GeneratorController extends JFrame
 
                 if(userSelection == JFileChooser.APPROVE_OPTION)
                 {
-                    System.out.println("Fuck you");
+                    //Other code goes here
                 }
             }
         });
         saveMenuItem.setText("Save");
-        JMenuItem clearImageMenuItem = new JMenuItem("Clear");
+
+        JMenuItem clearImageMenuItem = new JMenuItem(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.clearRandomImage();
+            }
+        });
+        clearImageMenuItem.setText("Clear");
 
         fileMenu.add(saveMenuItem);
         imageMenu.add(clearImageMenuItem);

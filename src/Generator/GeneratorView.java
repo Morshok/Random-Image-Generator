@@ -7,17 +7,12 @@ import java.awt.image.BufferedImage;
 public class GeneratorView extends JPanel
 {
     private GeneratorModel model;
-    private BufferedImage canvas;
-    private BufferedImage randomlyGeneratedImage;
     private boolean shouldDraw;
 
     public GeneratorView(GeneratorModel model)
     {
         this.model = model;
         this.shouldDraw = false;
-
-        this.canvas = this.model.loadImage(System.getProperty("user.dir") + "/img/canvas.jpg");
-        this.randomlyGeneratedImage = this.model.loadImage(System.getProperty("user.dir") + "/img/temp.png");
     }
 
     public void paintComponent(Graphics graphics)
@@ -33,25 +28,27 @@ public class GeneratorView extends JPanel
     {
         if(this.shouldDraw)
         {
-            getRandomImage();
+            this.model.generateRandomImage();
             this.shouldDraw = false;
         }
+
+        BufferedImage canvas = this.model.getCanvas();
+        BufferedImage randomlyGeneratedImage = this.model.getRandomlyGeneratedImage();
 
         int width = this.model.getWindowWidth();
         int height = this.model.getWindowHeight();
 
-        graphics.drawImage(this.canvas, 0, 0, width, height, null);
-        graphics.drawImage(this.randomlyGeneratedImage, 0, 0, width, height, null);
+        graphics.drawImage(canvas, 0, 0, width, height, null);
+        graphics.drawImage(randomlyGeneratedImage, 0, 0, width, height, null);
 
         this.repaint();
     }
 
-    private void getRandomImage() { this.model.generateRandomImage(this.randomlyGeneratedImage);}
     public void clearRandomImage()
     {
         String filePath = System.getProperty("user.dir") + "/img/temp.png";
         String formatName = "png";
-        this.model.clearRandomImage(this.randomlyGeneratedImage, filePath, formatName);
+        this.model.clearRandomImage(filePath, formatName);
     }
 
     public void toggleShouldDraw() { this.shouldDraw = !this.shouldDraw; }
