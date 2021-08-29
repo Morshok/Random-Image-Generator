@@ -1,10 +1,13 @@
 package Generator;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.ImageFilter;
 
 public class GeneratorController extends JFrame
 {
@@ -40,12 +43,18 @@ public class GeneratorController extends JFrame
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Save as");
+                fileChooser.setFileFilter(
+                        new FileNameExtensionFilter(
+                                "Image files",
+                                ImageIO.getReaderFileSuffixes()
+                        )
+                );
 
                 int userSelection = fileChooser.showSaveDialog(GeneratorController.this);
 
                 if(userSelection == JFileChooser.APPROVE_OPTION)
                 {
-                    //Other code goes here
+                    model.saveImage(fileChooser.getSelectedFile().getAbsolutePath(), "png");
                 }
             }
         });
