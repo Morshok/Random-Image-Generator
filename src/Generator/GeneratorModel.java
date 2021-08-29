@@ -1,7 +1,8 @@
-import javax.imageio.ImageIO;
+package Generator;
+
+import Utility.ImageHandler;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
 public class GeneratorModel
