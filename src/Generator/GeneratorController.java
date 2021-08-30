@@ -1,5 +1,7 @@
 package Generator;
 
+import GUI.GeneratorMenuBar;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -32,47 +34,8 @@ public class GeneratorController extends JFrame
         });
         add(this.view);
 
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(Color.LIGHT_GRAY);
-
-        JMenu fileMenu = new JMenu("File");
-        JMenu imageMenu = new JMenu("Image");
-
-        JMenuItem saveMenuItem = new JMenuItem(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Save as");
-                fileChooser.setFileFilter(
-                        new FileNameExtensionFilter(
-                                "Image files",
-                                ImageIO.getReaderFileSuffixes()
-                        )
-                );
-
-                int userSelection = fileChooser.showSaveDialog(GeneratorController.this);
-
-                if(userSelection == JFileChooser.APPROVE_OPTION)
-                {
-                    model.saveImage(fileChooser.getSelectedFile().getAbsolutePath(), "png");
-                }
-            }
-        });
-        saveMenuItem.setText("Save");
-
-        JMenuItem clearImageMenuItem = new JMenuItem(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.clearRandomImage();
-            }
-        });
-        clearImageMenuItem.setText("Clear");
-
-        fileMenu.add(saveMenuItem);
-        imageMenu.add(clearImageMenuItem);
-        menuBar.add(fileMenu);
-        menuBar.add(imageMenu);
-        add(menuBar, BorderLayout.NORTH);
+        GeneratorMenuBar generatorMenuBar = new GeneratorMenuBar(model, view, this);
+        add(generatorMenuBar, BorderLayout.NORTH);
 
         JPanel generateButtonPanel = new JPanel();
         generateButtonPanel.setBackground(Color.LIGHT_GRAY);
